@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Виктория Ракитина](https://up.htmlacademy.ru/javascript/23/user/1287069).
-* Наставник: `Неизвестно`.
+* Наставник: [Виктор Кан](https://htmlacademy.ru/profile/viktorkan).
 
 ---
 

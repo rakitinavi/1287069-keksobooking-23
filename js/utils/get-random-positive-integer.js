@@ -26,3 +26,10 @@ function getRandomPositiveInteger (a, b) {
   // потому что Math.random() генерирует только дробные числа и ноль.
   return Math.floor(result);
 };
+
+function getRandomPositiveInteger(a, b) {
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+};

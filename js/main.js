@@ -3,6 +3,7 @@ import { getRandomNumber } from './util';
 import { getRandomNoninteger } from './util';
 import { getRandomElement } from './util';
 import { getRandomArrayLength } from './util';
+import './card.js';
 
 const createAds = (adNumber) => { /*Функция, которая создает объект нужной структуры*/
   const result = [];
@@ -41,3 +42,4 @@ const createAds = (adNumber) => { /*Функция, которая создае�
 
 console.log(createAds(8));
 
+export {createAds};

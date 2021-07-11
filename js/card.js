@@ -55,34 +55,33 @@ const fillTemplateCard = ({ author, offer }) => {
     cardCheckTime.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   }
 
-  cardFeatures.innerHTML = '';
-  if (!offer.features) {
-    cardFeatures.classList.add('visually-hidden');
-  } else {
-    offer.features.forEach((feature) => {
-      const featureElement = document.createElement('li');
-      featureElement.classList.add(
-        'popup__feature',
-        `popup__feature--${feature}`,
-      );
-      cardFeatures.appendChild(featureElement);
-    });
-  }
+  const fillElementDataArray = (element, array, handler) => {
+    element.innerHTML = '';
+    if (!array) {
+      element.classList.add('visually-hidden');
+    } else {
+      array.forEach(handler);
+    }
+  };
 
-  cardPhotos.innerHTML = '';
-  if (!offer.features) {
-    cardFeatures.classList.add('visually-hidden');
-  } else {
-    offer.photos.forEach((photo) => {
-      const photoElement = document.createElement('img');
-      photoElement.classList.add('popup__photo');
-      photoElement.width = 45;
-      photoElement.height = 40;
-      photoElement.alt = 'Фотография жилья';
-      photoElement.src = photo;
-      cardPhotos.appendChild(photoElement);
-    });
-  }
+  fillElementDataArray(cardFeatures, offer.features, (arrayItem) => {
+    const featureElement = document.createElement('li');
+    featureElement.classList.add(
+      'popup__feature',
+      `popup__feature--${arrayItem}`,
+    );
+    cardFeatures.appendChild(featureElement);
+  });
+
+  fillElementDataArray(cardPhotos, offer.photos, (arrayItem) => {
+    const photoElement = document.createElement('img');
+    photoElement.classList.add('popup__photo');
+    photoElement.width = 45;
+    photoElement.height = 40;
+    photoElement.alt = 'Фотография жилья';
+    photoElement.src = arrayItem;
+    cardPhotos.appendChild(photoElement);
+  });
 
   return card;
 };
@@ -93,8 +92,8 @@ const createCards = (ads) => {
   ads.forEach((card) => {
     const element = fillTemplateCard(card);
     similarAdsFragment.appendChild(element);
+    similarAdsFragment.appendChild(fillTemplateCard(card));
   });
   return map.appendChild(similarAdsFragment);
 };
-
 createCards(createAds(AD_NUM));

@@ -4,6 +4,21 @@ import { getRandomNoninteger } from './util';
 import { getRandomElement } from './util';
 import { getRandomArrayLength } from './util';
 import './card.js';
+import { disableFilters, enableFilters } from './filters.js';
+import { disableAdForm, enableAdForm } from './form.js';
+
+const deactivateApp = () => {
+  disableAdForm();
+  disableFilters();
+};
+
+const activateApp = () => {
+  enableAdForm();
+  enableFilters();
+};
+
+deactivateApp();
+activateApp();
 
 const createAds = (adNumber) => { /*Функция, которая создает объект нужной структуры*/
   const result = [];
@@ -42,4 +57,4 @@ const createAds = (adNumber) => { /*Функция, которая создае�
 
 console.log(createAds(8));
 
-export {createAds};
+export { createAds };

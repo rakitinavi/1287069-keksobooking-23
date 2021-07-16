@@ -14,7 +14,7 @@ const fillElementAdsData = (adsData, element, text) => {
   element.textContent = text;
 };
 
-const fillTemplateCard = ({author, offer}) => {
+const fillTemplateCard = ({ author, offer }) => {
   const card = cardTemplate.cloneNode(true);
   const cardTitle = card.querySelector('.popup__title');
   const cardAddress = card.querySelector('.popup__text--address');
@@ -33,7 +33,7 @@ const fillTemplateCard = ({author, offer}) => {
   fillElementAdsData(offer.type, cardHousingType, houseTypeDisplay[offer.type]);
   fillElementAdsData(offer.description, cardDescription, offer.description);
 
-  if(!author.avatar) {
+  if (!author.avatar) {
     cardAvatar.classList.add('visually-hidden');
   } else {
     cardAvatar.src = author.avatar;
@@ -53,7 +53,7 @@ const fillTemplateCard = ({author, offer}) => {
 
   const fillElementDataArray = (element, array, handler) => {
     element.innerHTML = '';
-    if(!array) {
+    if (!array) {
       element.classList.add('visually-hidden');
     } else {
       array.forEach(handler);
@@ -82,5 +82,5 @@ const fillTemplateCard = ({author, offer}) => {
   return card;
 };
 
-export {fillTemplateCard};
+export { fillTemplateCard };
 

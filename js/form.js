@@ -21,6 +21,7 @@ const MinPriceForNight = {
   'palace': 10000,
 };
 
+
 const form = document.querySelector('.ad-form');
 const formFieldsets = form.querySelectorAll('fieldset');
 const formAdTitle = form.querySelector('#title');

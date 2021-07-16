@@ -1,8 +1,4 @@
-import { createAds } from './main.js';
-
-const AD_NUM = 1;
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-const map = document.querySelector('.map__canvas');
 const houseTypeDisplay = {
   'palace': 'Дворец',
   'flat': 'Квартира',
@@ -18,12 +14,12 @@ const fillElementAdsData = (adsData, element, text) => {
   element.textContent = text;
 };
 
-const fillTemplateCard = ({ author, offer }) => {
+const fillTemplateCard = ({author, offer}) => {
   const card = cardTemplate.cloneNode(true);
   const cardTitle = card.querySelector('.popup__title');
   const cardAddress = card.querySelector('.popup__text--address');
   const cardPrice = card.querySelector('.popup__text--price');
-  const cardType = card.querySelector('.popup__type');
+  const cardHousingType = card.querySelector('.popup__type');
   const cardCapacity = card.querySelector('.popup__text--capacity');
   const cardCheckTime = card.querySelector('.popup__text--time');
   const cardFeatures = card.querySelector('.popup__features');
@@ -34,10 +30,10 @@ const fillTemplateCard = ({ author, offer }) => {
   fillElementAdsData(offer.title, cardTitle, offer.title);
   fillElementAdsData(offer.address, cardAddress, offer.address);
   fillElementAdsData(offer.price, cardPrice, `${offer.price} ₽/ночь`);
-  fillElementAdsData(offer.type, cardType, houseTypeDisplay[offer.type]);
+  fillElementAdsData(offer.type, cardHousingType, houseTypeDisplay[offer.type]);
   fillElementAdsData(offer.description, cardDescription, offer.description);
 
-  if (!author.avatar) {
+  if(!author.avatar) {
     cardAvatar.classList.add('visually-hidden');
   } else {
     cardAvatar.src = author.avatar;
@@ -57,7 +53,7 @@ const fillTemplateCard = ({ author, offer }) => {
 
   const fillElementDataArray = (element, array, handler) => {
     element.innerHTML = '';
-    if (!array) {
+    if(!array) {
       element.classList.add('visually-hidden');
     } else {
       array.forEach(handler);
@@ -86,14 +82,5 @@ const fillTemplateCard = ({ author, offer }) => {
   return card;
 };
 
-const createCards = (ads) => {
-  const similarAdsFragment = document.createDocumentFragment();
+export {fillTemplateCard};
 
-  ads.forEach((card) => {
-    const element = fillTemplateCard(card);
-    similarAdsFragment.appendChild(element);
-    similarAdsFragment.appendChild(fillTemplateCard(card));
-  });
-  return map.appendChild(similarAdsFragment);
-};
-createCards(createAds(AD_NUM));

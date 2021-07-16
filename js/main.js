@@ -1,11 +1,37 @@
-import { TITLE, TYPE, CHECKIN, CHECKOUT, FEATURES, DESCRIPTION, PHOTOS } from './data';
-import { getRandomNumber } from './util';
-import { getRandomNoninteger } from './util';
-import { getRandomElement } from './util';
-import { getRandomArrayLength } from './util';
 import './card.js';
-import { disableFilters, enableFilters } from './filters.js';
-import { disableAdForm, enableAdForm } from './form.js';
+import './filters.js';
+import './form.js';
+import './map.js';
+import './popup.js';
+import './photo.js';
+
+import {form, disableAdForm, enableAdForm, resetAdForm, resetButton, setAddressInput} from './form.js';
+import {getData, sendData} from './api.js';
+import {renderAdMarkers, removeAdMarkers, initMap, resetMap} from './map.js';
+import {showAlert, debounce} from './utils.js';
+import {disableFilters, enableFilters, getFilteredAds, filterForm} from './filters.js';
+import {DefaultCoords, PopupType} from './constants.js';
+import {showPopup} from './popup.js';
+
+let adsData;
+
+const showMessageError = (error) => {
+  showAlert(`Не удалось загрузить объявления ${error}`);
+};
+
+const onFilterChange = debounce((ads) => {
+  const newAds = getFilteredAds(ads);
+  removeAdMarkers();
+  renderAdMarkers(newAds);
+});
+
+const resetApp = () => {
+  resetMap();
+  removeAdMarkers();
+  resetAdForm();
+  filterForm.reset();
+  renderAdMarkers(adsData);
+};
 
 const deactivateApp = () => {
   disableAdForm();
@@ -15,46 +41,42 @@ const deactivateApp = () => {
 const activateApp = () => {
   enableAdForm();
   enableFilters();
+  getData()
+    .then((ads) => {
+      adsData = ads;
+      renderAdMarkers(ads);
+      filterForm.addEventListener('change', () => {
+        onFilterChange(ads);
+      });
+    })
+    .catch(showMessageError);
 };
 
-deactivateApp();
-activateApp();
-
-const createAds = (adNumber) => { /*Функция, которая создает объект нужной структуры*/
-  const result = [];
-
-  for (let i = 1; i <= adNumber; i += 1) {
-
-
-    const locationX = Number(getRandomNoninteger(1, 100, 10));
-    const locationY = Number(getRandomNoninteger(1, 150, 10));
-
-    result.push({
-      'author': {
-        'avatar': `img/avatars/user0${i}.png`,
-      },
-      'offer': {
-        'title': getRandomElement(TITLE),
-        'address': `${locationX}, ${locationY}`,
-        'price': getRandomNumber(500, 100000),
-        'type': getRandomElement(TYPE),
-        'rooms': getRandomNumber(1, 5),
-        'guests': getRandomNumber(1, 7),
-        'checkin': getRandomElement(CHECKIN),
-        'checkout': getRandomElement(CHECKOUT),
-        'features': getRandomArrayLength(FEATURES),
-        'description': getRandomElement(DESCRIPTION),
-        'photos': getRandomArrayLength(PHOTOS),
-      },
-      'location': {
-        'lat': locationX,
-        'lng': locationY,
-      },
-    });
-  }
-  return result;
+const setFormSubmit = (send) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    send(evt.target)
+      .then(() => showPopup(PopupType.SUCCESS))
+      .then(resetApp)
+      .catch(() => showPopup(PopupType.ERROR));
+  });
 };
 
-console.log(createAds(8));
+const initApp = () => {
+  deactivateApp();
+  initMap({
+    onMapLoad: activateApp,
+    onMainPinDrag: setAddressInput,
+  });
+  setAddressInput({lat: DefaultCoords.LAT, lng: DefaultCoords.LNG});
+  setFormSubmit(sendData);
 
-export { createAds };
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    resetApp();
+  });
+};
+
+initApp();
+
+

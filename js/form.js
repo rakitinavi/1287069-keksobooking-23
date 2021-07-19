@@ -6,14 +6,14 @@ const MAX_TITLE_LENGTH = 100;
 const MIN_TITLE_LENGTH = 30;
 const AVATAR_DEFAULT = 'img/muffin-grey.svg';
 
-const RoomsValue = {
+const roomsValue = {
   1: [1],
   2: [1, 2],
   3: [1, 2, 3],
   100: [0],
 };
 
-const MinPriceForNight = {
+const minPriceForNight = {
   'bungalow': 0,
   'flat': 1000,
   'hotel': 3000,
@@ -46,7 +46,7 @@ const setAddressInput = ({ lat, lng }) => {
 const resetAdForm = () => {
   form.reset();
   setAddressInput({ lat: DefaultCoords.LAT, lng: DefaultCoords.LNG });
-  price.placeholder = MinPriceForNight[typeOfHouseSelect.value];
+  price.placeholder = minPriceForNight[typeOfHouseSelect.value];
   avatarPreview.src = AVATAR_DEFAULT;
   housePreviewContainer.innerHTML = '';
 };
@@ -72,8 +72,8 @@ const onTimeChange = (evt) => {
 
 const onTypeOfHouseChange = () => {
   const typeOfHouse = typeOfHouseSelect.value;
-  price.setAttribute('min', MinPriceForNight[typeOfHouse]);
-  price.placeholder = MinPriceForNight[typeOfHouse];
+  price.setAttribute('min', minPriceForNight[typeOfHouse]);
+  price.placeholder = minPriceForNight[typeOfHouse];
 };
 
 const onRoomChange = (evt) => {
@@ -81,7 +81,7 @@ const onRoomChange = (evt) => {
     option.disabled = true;
   });
 
-  RoomsValue[evt.target.value].forEach((seatsAmount) => {
+  roomsValue[evt.target.value].forEach((seatsAmount) => {
     optionCapacityGuests.forEach((option) => {
       if (Number(option.value) === seatsAmount) {
         option.disabled = false;

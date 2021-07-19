@@ -41,7 +41,7 @@ const filterHousingType = (ad) => {
 
 const filterHousingPrice = (ad) => {
   const filterValue = housingPrice.value;
-  switch(filterValue) {
+  switch (filterValue) {
     case CategoryPrice.LOW:
       return ad.offer.price <= MIN_PRICE;
     case CategoryPrice.MIDDLE:

@@ -25,4 +25,4 @@ const sendData = (form) => (
   })
 );
 
-export {getData, sendData};
+export { getData, sendData };

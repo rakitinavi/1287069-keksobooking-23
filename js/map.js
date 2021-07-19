@@ -94,5 +94,6 @@ const removeAdMarkers = () => {
   adMarkersGroup.clearLayers();
 };
 
+
 export {initMap, resetMap, renderAdMarkers, removeAdMarkers};
 

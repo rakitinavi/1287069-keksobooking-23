@@ -8,4 +8,4 @@ const PopupType = {
   SUCCESS: 'SUCCESS',
 };
 
-export {DefaultCoords, PopupType};
+export { DefaultCoords, PopupType };

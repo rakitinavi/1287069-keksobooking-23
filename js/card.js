@@ -69,11 +69,15 @@ const fillTemplateCard = ({ author, offer }) => {
     cardFeatures.appendChild(featureElement);
   });
 
+  const photoElementWidth = 45;
+  const photoElementHeigh = 40;
+
+
   fillElementDataArray(cardPhotos, offer.photos, (arrayItem) => {
     const photoElement = document.createElement('img');
     photoElement.classList.add('popup__photo');
-    photoElement.width = 45;
-    photoElement.height = 40;
+    photoElement.width = photoElementWidth;
+    photoElement.height = photoElementHeigh;
     photoElement.alt = 'Фотография жилья';
     photoElement.src = arrayItem;
     cardPhotos.appendChild(photoElement);

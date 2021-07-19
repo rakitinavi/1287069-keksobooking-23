@@ -1,11 +1,11 @@
-import {fillTemplateCard} from './card.js';
-import {DefaultCoords} from './constants.js';
+import { fillTemplateCard } from './card.js';
+import { DefaultCoords } from './constants.js';
 
 const AD_COUNT = 10;
 const MAP_ZOOM = 11;
-const MAINPIN_WIDTH = 52;
-const MAINPIN_HEIGHT = 52;
-const MAINPIN_MIDDLE_WIDTH = 26;
+const MAIN_PIN_WIDTH = 52;
+const MAIN_PIN_HEIGHT = 52;
+const MAIN_PIN_MIDDLE_WIDTH = 26;
 const PIN_WIDTH = 40;
 const PIN_HEIGHT = 40;
 const PIN_MIDDLE_WIDTH = 20;
@@ -22,8 +22,8 @@ const mainPin = L.marker(
     draggable: true,
     icon: L.icon({
       iconUrl: 'img/main-pin.svg',
-      iconSize: [MAINPIN_WIDTH, MAINPIN_HEIGHT],
-      iconAnchor: [MAINPIN_MIDDLE_WIDTH, MAINPIN_HEIGHT],
+      iconSize: [MAIN_PIN_WIDTH, MAIN_PIN_HEIGHT],
+      iconAnchor: [MAIN_PIN_MIDDLE_WIDTH, MAIN_PIN_HEIGHT],
     }),
   },
 );
@@ -95,5 +95,5 @@ const removeAdMarkers = () => {
 };
 
 
-export {initMap, resetMap, renderAdMarkers, removeAdMarkers};
+export { initMap, resetMap, renderAdMarkers, removeAdMarkers };
 

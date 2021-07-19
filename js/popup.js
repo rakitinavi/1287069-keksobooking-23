@@ -8,7 +8,7 @@ const popupTemplate = {
 
 let activePopup = null;
 
-function removePopup() {
+const removePopup = () => {
   if (activePopup !== null) {
     activePopup.remove();
     document.removeEventListener('keydown', onPopupKeyDown);
@@ -16,23 +16,14 @@ function removePopup() {
   }
 }
 
-function onPopupKeyDown (evt) {
+const onPopupKeyDown = (evt) => {
   if (isEscEvent(evt) || isEnterEvent(evt)) {
     evt.preventDefault();
     removePopup();
   }
 }
 
-function onPopupClick () {
-  removePopup();
-}
-
-const showPopup = (popupType) => {
-  activePopup = popupTemplate[popupType].cloneNode(true);
-  document.body.insertAdjacentElement('afterbegin', activePopup);
-  activePopup.addEventListener('click', onPopupClick);
-  document.addEventListener('keydown', onPopupKeyDown);
-};
+const onPopupClick = () => removePopup();
 
 
 export {showPopup};
